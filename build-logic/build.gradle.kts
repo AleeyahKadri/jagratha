@@ -1,0 +1,13 @@
+plugins {
+    `kotlin-dsl`
+}
+
+dependencies {
+    // Expose version catalog to precompiled script plugins
+    implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
+
+    implementation("com.diffplug.spotless:spotless-plugin-gradle:${libs.versions.spotless.get()}")
+    implementation("com.github.spotbugs.snom:spotbugs-gradle-plugin:${libs.versions.spotbugs.get()}")
+    implementation("io.freefair.gradle:lombok-plugin:${libs.versions.lombok.get()}")
+    implementation("com.github.node-gradle:gradle-node-plugin:${libs.versions.nodeGradle.get()}")
+}

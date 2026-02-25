@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 plugins {
-    id 'com.github.node-gradle.node'
+    id("com.github.node-gradle.node")
 }
+
+private val catalog = versionCatalogs.named("libs")
 
 node {
     // Version of node to use.
-    version = libs.versions.node.get()
+    version.set(catalog.findVersion("node").get().requiredVersion)
 
     // Version of pnpm to use.
-    pnpmVersion = libs.versions.pnpm.get()
+    pnpmVersion.set(catalog.findVersion("pnpm").get().requiredVersion)
 
     // If true, it will download node using above parameters.
     // If false, it will try to use globally installed node.
-    download = true
+    download.set(true)
 }
