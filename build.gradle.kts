@@ -14,17 +14,11 @@
  * limitations under the License.
  */
 plugins {
-    id 'com.github.node-gradle.node'
+  id("base")
+  alias(libs.plugins.cyclonedx)
 }
 
-node {
-    // Version of node to use.
-    version = libs.versions.node.get()
-
-    // Version of pnpm to use.
-    pnpmVersion = libs.versions.pnpm.get()
-
-    // If true, it will download node using above parameters.
-    // If false, it will try to use globally installed node.
-    download = true
+allprojects {
+  group = "com.infenia.jagratha"
+  version = "0.0.1-SNAPSHOT"
 }

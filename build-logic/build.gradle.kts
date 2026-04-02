@@ -14,25 +14,12 @@
  * limitations under the License.
  */
 plugins {
-    id 'java-library'
-    id 'com.infenia.jagratha.java-conventions'
-    id 'com.infenia.jagratha.quality-conventions'
-    id 'com.infenia.jagratha.jacoco-conventions'
-    alias(libs.plugins.spring.dependency.management)
+  `kotlin-dsl`
 }
-
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBoot.get()}"
-    }
-}
-
-version = '1.0.0'
 
 dependencies {
-    implementation project(':plugins:build-tools:common')
-    implementation libs.spring.boot.starter.webflux
-
-    testImplementation libs.spring.boot.starter.test
-    testImplementation libs.reactor.test
+  implementation("com.diffplug.spotless:spotless-plugin-gradle:${libs.versions.spotless.get()}")
+  implementation("com.github.spotbugs.snom:spotbugs-gradle-plugin:${libs.versions.spotbugs.get()}")
+  implementation("io.freefair.gradle:lombok-plugin:${libs.versions.lombok.get()}")
+  implementation("com.github.node-gradle:gradle-node-plugin:${libs.versions.nodeGradle.get()}")
 }

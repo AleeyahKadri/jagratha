@@ -13,22 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import org.gradle.api.artifacts.VersionCatalogsExtension
+
 plugins {
-    id 'java-library'
-    id 'com.infenia.jagratha.java-conventions'
-    id 'com.infenia.jagratha.quality-conventions'
-    id 'com.infenia.jagratha.jacoco-conventions'
-    alias(libs.plugins.spring.dependency.management)
+  id("com.github.node-gradle.node")
 }
 
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBoot.get()}"
-    }
-}
+val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
-dependencies {
-    api libs.spring.boot.starter.webflux
-
-    testImplementation libs.reactor.test
+node {
+  version.set(libs.findVersion("node").get().requiredVersion)
+  pnpmVersion.set(libs.findVersion("pnpm").get().requiredVersion)
+  download.set(true)
 }
