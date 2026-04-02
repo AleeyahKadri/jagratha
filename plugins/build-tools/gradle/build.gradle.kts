@@ -14,21 +14,25 @@
  * limitations under the License.
  */
 plugins {
-    id 'java-library'
-    id 'com.infenia.jagratha.java-conventions'
-    id 'com.infenia.jagratha.quality-conventions'
-    id 'com.infenia.jagratha.jacoco-conventions'
-    alias(libs.plugins.spring.dependency.management)
+  id("java-library")
+  id("com.infenia.jagratha.java-conventions")
+  id("com.infenia.jagratha.quality-conventions")
+  id("com.infenia.jagratha.jacoco-conventions")
+  alias(libs.plugins.spring.dependency.management)
 }
 
 dependencyManagement {
-    imports {
-        mavenBom "org.springframework.boot:spring-boot-dependencies:${libs.versions.springBoot.get()}"
-    }
+  imports {
+    mavenBom("org.springframework.boot:spring-boot-dependencies:${libs.versions.springBoot.get()}")
+  }
 }
 
-dependencies {
-    api libs.spring.boot.starter.webflux
+version = "1.0.0"
 
-    testImplementation libs.reactor.test
+dependencies {
+  implementation(project(":plugins:build-tools:common"))
+  implementation(libs.spring.boot.starter.webflux)
+
+  testImplementation(libs.spring.boot.starter.test)
+  testImplementation(libs.reactor.test)
 }
