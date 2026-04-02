@@ -56,7 +56,7 @@ tasks.named("bootJar") {
 }
 
 sourceSets.main {
-  output.dir(file("build/jte-classes"), mapOf("builtBy" to "precompileJte"))
+  output.dir(mapOf("builtBy" to "precompileJte"), "build/jte-classes")
 }
 
 tasks.named("jar") {
@@ -89,6 +89,6 @@ tasks.named<ProcessResources>("processResources") {
 
 tasks.named("jacocoTestReport") {
   onlyIf {
-    tasks.named("test").get().didWork || file("${buildDir}/jacoco/test.exec").exists()
+    tasks.named("test").get().didWork || layout.buildDirectory.file("jacoco/test.exec").get().asFile.exists()
   }
 }

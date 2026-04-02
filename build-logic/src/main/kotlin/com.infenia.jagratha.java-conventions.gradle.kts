@@ -1,3 +1,5 @@
+import org.gradle.api.artifacts.VersionCatalogsExtension
+
 plugins {
   java
   id("io.freefair.lombok")
@@ -25,8 +27,10 @@ configurations {
   }
 }
 
+val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
 dependencies {
-  testImplementation(libs.spring.boot.starter.test)
+  testImplementation(libs.findLibrary("spring-boot-starter-test").get())
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

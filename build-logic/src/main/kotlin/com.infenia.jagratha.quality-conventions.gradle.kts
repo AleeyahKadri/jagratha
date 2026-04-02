@@ -1,5 +1,6 @@
 import org.gradle.api.plugins.quality.Checkstyle
 import org.gradle.api.plugins.quality.Pmd
+import org.gradle.api.artifacts.VersionCatalogsExtension
 
 plugins {
   id("com.diffplug.spotless")
@@ -33,15 +34,17 @@ spotless {
   }
 }
 
+val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
 checkstyle {
-  toolVersion = libs.versions.checkstyle.get()
+  toolVersion = libs.findVersion("checkstyle").get().requiredVersion
   configFile = rootProject.file("config/checkstyle/checkstyle.xml")
   isIgnoreFailures = false
   isShowViolations = true
 }
 
 pmd {
-  toolVersion = libs.versions.pmd.get()
+  toolVersion = libs.findVersion("pmd").get().requiredVersion
   ruleSets = listOf(rootProject.file("config/pmd/ruleset.xml").absolutePath)
   isIgnoreFailures = false
   isConsoleOutput = true
